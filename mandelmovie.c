@@ -1,5 +1,11 @@
-/* CPE-2600 Systems Programming, Lab 11: Multiprocessing
-  Generate a sequence of Mandelbrot frames using a bounded number of children. */
+/*
+ * Author: Logan Smouter
+ * Date: 11/23/2026
+ * Assignment: CPE-2600 Lab 11: Multiprocessing
+ * Section: CPE-2600 131
+ * Description: Generate a Mandelbrot movie sequence using multiple child processes.
+ * Compilation: $ make
+ */
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>
