@@ -21,10 +21,5 @@ mandelmovie: $(MOVIE_OBJECTS)
 %.o: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
 
-# Avoid parsing stale dependency files when cleaning an interrupted or old build.
-ifneq ($(MAKECMDGOALS),clean)
--include $(DEPENDENCIES)
-endif
-
 clean:
 	rm -f $(MANDEL_OBJECTS) $(MOVIE_OBJECTS) $(PROGRAMS) $(DEPENDENCIES)
