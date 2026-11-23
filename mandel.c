@@ -1,11 +1,11 @@
-/// 
-//  mandel.c
-//  Based on example code found here:
-//  https://users.cs.fiu.edu/~cpoellab/teaching/cop4610_fall22/project3.html
-//
-//  Converted to use jpg instead of BMP and other minor changes
-//  
-///
+/** 
+* mandel.c
+* Based on example code found here:
+* https://users.cs.fiu.edu/~cpoellab/teaching/cop4610_fall22/project3.html
+*
+* Converted to use jpg instead of BMP and other minor changes
+*  
+**/
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -63,7 +63,7 @@ int main( int argc, char *argv[] )
 				break;
 			case 'h':
 				show_help();
-				exit(1);
+				exit(0);
 				break;
 		}
 	}
@@ -95,10 +95,8 @@ int main( int argc, char *argv[] )
 
 
 
-/*
-Return the number of iterations at point x, y
-in the Mandelbrot space, up to a maximum of max.
-*/
+// Return the number of iterations at point x, y
+// in the Mandelbrot space, up to a maximum of max.
 
 int iterations_at_point( double x, double y, int max )
 {
@@ -121,10 +119,8 @@ int iterations_at_point( double x, double y, int max )
 	return iter;
 }
 
-/*
-Compute an entire Mandelbrot image, writing each point to the given bitmap.
-Scale the image to the range (xmin-xmax,ymin-ymax), limiting iterations to "max"
-*/
+// Compute an entire Mandelbrot image, writing each point to the given bitmap.
+// Scale the image to the range (xmin-xmax,ymin-ymax), limiting iterations to "max"
 
 void compute_image(imgRawImage* img, double xmin, double xmax, double ymin, double ymax, int max )
 {
@@ -153,11 +149,9 @@ void compute_image(imgRawImage* img, double xmin, double xmax, double ymin, doub
 }
 
 
-/*
-Convert a iteration number to a color.
-Here, we just scale to gray with a maximum of imax.
-Modify this function to make more interesting colors.
-*/
+// Convert a iteration number to a color.
+// Here, we just scale to gray with a maximum of imax.
+// Modify this function to make more interesting colors.
 int iteration_to_color( int iters, int max )
 {
 	int color = 0xFFFFFF*iters/(double)max;
@@ -176,7 +170,7 @@ void show_help()
 	printf("-s <scale>  Scale of the image in Mandlebrot coordinates (X-axis). (default=4)\n");
 	printf("-W <pixels> Width of the image in pixels. (default=1000)\n");
 	printf("-H <pixels> Height of the image in pixels. (default=1000)\n");
-	printf("-o <file>   Set output file. (default=mandel.bmp)\n");
+	printf("-o <file>   Set output file. (default=mandel.jpg)\n");
 	printf("-h          Show this help text.\n");
 	printf("\nSome examples are:\n");
 	printf("mandel -x -0.5 -y -0.5 -s 0.2\n");

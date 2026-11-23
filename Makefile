@@ -1,21 +1,30 @@
-CC=gcc
-CFLAGS=-c -Wall -g
-LDFLAGS=-ljpeg
-SOURCES= mandel.c jpegrw.c 
-OBJECTS=$(SOURCES:.c=.o)
-EXECUTABLE=mandel
+CC = gcc
+CFLAGS = -Wall -Wextra -g
+CPPFLAGS =
+LDFLAGS =
 
-all: $(SOURCES) $(EXECUTABLE) 
+PROGRAMS = mandel mandelmovie
+MANDEL_OBJECTS = mandel.o jpegrw.o
+MOVIE_OBJECTS = mandelmovie.o
+DEPENDENCIES = mandel.d jpegrw.d mandelmovie.d
 
-# pull in dependency info for *existing* .o files
--include $(OBJECTS:.o=.d)
+.PHONY: all clean
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+all: $(PROGRAMS)
 
-.c.o: 
-	$(CC) $(CFLAGS) $< -o $@
-	$(CC) -MM $< > $*.d
+mandel: $(MANDEL_OBJECTS)
+	$(CC) $(LDFLAGS) -o $@ $^ -ljpeg
+
+mandelmovie: $(MOVIE_OBJECTS)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
+
+# Avoid parsing stale dependency files when cleaning an interrupted or old build.
+ifneq ($(MAKECMDGOALS),clean)
+-include $(DEPENDENCIES)
+endif
 
 clean:
-	rm -rf $(OBJECTS) $(EXECUTABLE) *.d
+	rm -f $(MANDEL_OBJECTS) $(MOVIE_OBJECTS) $(PROGRAMS) $(DEPENDENCIES)
